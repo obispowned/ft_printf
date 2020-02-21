@@ -1,0 +1,40 @@
+/*void	nbr_hex(t_flag *f, int argumento)
+{
+	int 	argum;
+	int		*a;
+	int		i;
+
+	i = 0;
+	argum = argumento;
+	while (argum <= 1)
+	{
+		*a = (argum % 16) * 16;
+		argum /= 16;
+		i++;
+		a++;
+	}
+	while (i <= 0)
+	{
+		write(1, a[i], 4);
+		i--;
+	}
+}
+
+void	comprobar_hex(t_flag *f)
+{
+	int		len;
+	int		argumento;
+
+	argumento = va_arg(f->args, unsigned long int);
+	nbr_hex(&(*f), argumento);
+
+		/*
+	len = nbr_hex(argumento);
+	if (argumento < 0 && f->flag_precision)
+		f->precision++;
+	if (f->flag_width)
+		hex_width(f, len);
+	if (f->flag_precision)
+		hex_precision(f, len);
+	hex_printer(f, n, base);
+}*/

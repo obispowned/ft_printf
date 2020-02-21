@@ -4,31 +4,80 @@
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
-
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 19:22:09 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/05 19:34:08 by agutierr         ###   ########.fr       */
+/*   Created: 2020/01/23 19:24:12 by agutierr          #+#    #+#             */
+/*   Updated: 2020/02/21 15:22:09 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-			/*****************************************************/
-			/* EJEMPLOS PARA CONOCER EL FUNCIONAMIENTO DE PRINTF */
-			/*****************************************************/
-
 #include <stdio.h>
+#include "ft_printf.h"
 
-int		main()
+int			main()
 {
-	printf("EJEMPLO DE WIDTH 5 Y PRECISION 3 PARA STRING = HOLA: %5.3s\n", "hola");
-	printf("EJEMPLO DE WIDHT 0 Y PRECISION 5 PARA STRING = PEPITO69: %5s\n", "pepito69");
-	printf("EJEMPLO DE WIDTH 8 Y PRECISION 0 PARA STRING = ALCAPONErt: %8.0s\n", "ALCAPONErt");
-	printf("EEEEEEJ con solo UN NUMERO DETRAS DEL 2 HOLA - 6 HOLA %2s\n - %6s\n", "hola", "hola");
-	printf("EJEMPLO DE WIDTH * Y PRECISION * PARA STRING = PATROCLO22: %*.*s\n\n\n",2,2, "patroclo22");
 
-	printf("VAMOS CON ENTEROS\n\n");
+	char	c = 'c';
+	int 	x;
+	char 	*a = "hola";
+	int   	j = 696969;
+	int		*p = &j;
 
-	printf("EJEMPLO DE WIDTH 5 Y PRECISION 5 PARA INT = 15987: %5.5d\n", 15987);
-	printf("EJEMPLO DE WIDHT 0 Y PRECISION 5 PARA INT = 564982: %0.5d\n", 564982);
-	printf("EJEMPLO DE WIDTH 8 Y PRECISION 0 PARA INT = 698235714: %8.0d\n", 698235714);
-	printf("EJEMPLO DE WIDTH * Y PRECISION * PARA INT = 1359724: %*.*d\n\n",1,1, 1359724);
+	ft_printf("\n\n****** CHAR ******\n");
+
+	ft_printf("mi char 9c: -%9c-\n", c);
+	printf("char 9c :   -%9c-\n\n", c);
+	ft_printf("mi char -5c: -%-5c-\n", c);
+	printf("char -5c  :  -%-5c-\n\n", c);
+	ft_printf("mi char 4c: -%4c-\n", c);
+	printf("char 4c :   -%4c-\n\n", c);
+	ft_printf("mi char *c10: -%*c-\n", 10, c);
+	printf("char  *c10:   -%*c-\n\n", 10, c);
+	ft_printf("mi char *c-10: -%*c-\n", -10, c);
+	printf("char  *c-10:   -%*c-\n\n", -10, c);
+	ft_printf("mi char *c-5: -%*c-\n", -5, c);
+	printf("char  *c-5:   -%*c-\n\n", -5, c);
+	ft_printf("mi char *c-20: -%*c-\n", -20, c);
+	printf("char  *c-20:   -%*c-\n\n", -20, c);
+
+	ft_printf("\n\n****** STRINGS ******\n");
+
+	ft_printf("mi printf   15s: %*.*s\n",11, 1, a);
+	printf("oficial con 15s: %*.*s\n\n",11, 1, a);
+	ft_printf("mi printf   15s: %9.3s\n", a);
+	printf("oficial con 15s: %9.3s\n\n", a);
+
+	ft_printf("\n\n****** INT ******\n");
+
+	ft_printf("MI int con 9.7: %9.7d\n", j);
+	printf("int con 9.7   : %9.7d\n\n", j);
+	ft_printf("MI int con 7.9: %7.9d\n", j);
+	printf("int con 7.9   : %7.9d\n\n", j);
+
+	ft_printf("\n\n****** HEX ******\n");
+
+	ft_printf("HEXADECIMAL: %x\n", 4779);
+	printf("oficial HEXADECIMAL: %x\n\n", 4779);
+
+
+	printf("oficialHEXADECIMAL 6.6: %6.6x\n\n", 2323);
+	ft_printf("HEXADECIMAL 6.6: %6.6x\n", 2323);
+	/*ft_printf("HEXADECIMAL 3.9: %3.9x\n", 6969);
+	printf("oficialHEXADECIMAL 3.9: %3.9x\n\n", 6969);
+	ft_printf("HEXADECIMAL 9.3: %9.3x\n", 111);
+	printf("oficialHEXADECIMAL 9.3: %9.3x\n\n", 111);
+
+	ft_printf("\n\n****** UN-HEX ******\n");
+
+	ft_printf("UN-HEXADECIMAL: %X\n", 1598);
+	printf("oficial-UN-HEXADECIMAL: %X\n\n", 1598);
+
+	ft_printf("\n\n****** PUNTEROS ******\n");
+
+	ft_printf("punteros p: -%p-\n", p);
+	printf("OFIpunteros p: -%p-\n\n", p);
+
+	ft_printf("\n\n****** UNSIGNED ******\n");
+
+	printf("\nUNSIGNED %u\n", -30);*/
 }
+
