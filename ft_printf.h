@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:16:54 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/21 15:42:47 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/02/28 21:48:37 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 //# include </Users/agutierr/Desktop/C/printf/libft/libft.h>
 
 typedef struct	s_flag
@@ -32,12 +33,14 @@ typedef struct	s_flag
 	int			precision;		//Numero, cantidad de precision segundo numero detras del .
 	int			minus_width;	//Bool para comprobar si hay signo negativo en width
 	int			minus_precision;//Bool para comprobar si hay signo negativo en precision
+	char		space_zero;
+	int 		minus;
 }t_flag;
 
 
 /*** FUNCIONES MÍAS ***/
 int				ft_printf(const char *format, ...);
-void			comprobar_formato(const char *format, t_flag f);
+void			comprobar_formato(const char *format, t_flag *f);
 void			comprobar_flag(const char *format, t_flag *f);
 void			comprobar_percent(const char *format, t_flag *f);
 void			calculo_precision(const char *format, t_flag *f);
@@ -45,28 +48,33 @@ void			calculo_width(const char *format, t_flag *f);
 void			reset_flags(t_flag *f);
 void 			subtracta(t_flag *f);
 
-void			comprobar_string(t_flag f);
+void			comprobar_char(t_flag *f);
+void			chr_width(t_flag *f);
+
+void			comprobar_string(t_flag *f);
 void			str_width(t_flag *f, int len);
 void			print_string(t_flag *f, char *str);
 
-void			comprobar_decimal(t_flag f);
-void			decimal_width(t_flag *f, int len);
+void			comprobar_decimal(t_flag *f);
+void 			decimal_width(t_flag *f, int len);
 void			print_decimal(t_flag *f, char *aux);
+void			decimal_precision(t_flag *f, int len);
 
-void			comprobar_char(t_flag f);
-void			chr_width(t_flag *f);
-void			print_chr(t_flag *f, char chr);
+void			comprobar_undecimal(t_flag *f);
+void			undecimal_width(t_flag *f, int len);
+void			print_undecimal(t_flag *f, char *aux);
 
-void			comprobar_hex(t_flag f);
+void			comprobar_hex(t_flag *f, char *digits);
 void 			hexa_width(t_flag *f, int l);
 void			hexa_convert(t_flag *f, char *digHex, unsigned int argumento);
-//, int i, char *hexaPrint);
 
-/*void			comprobar_unhex(t_flag f);
-void			un_hex_printer(t_flag *f, unsigned int argumento);*/
+void			comprobar_unhex(t_flag *f, char *digits);
+void			unhexa_convert(t_flag *f, char *dighex, unsigned int argumento);
+void			unhexa_width(t_flag *f, int i);
 
-//void			comprobar_puntero(t_flag f);
-//void			pointer_printer(t_flag *f, unsigned int argumento);
+void			comprobar_puntero(t_flag *f);
+void			point_convert(t_flag *f, char *dighex, unsigned long long int argumento);
+void			point_width(t_flag *f, int i);
 
 /*** UTILS ***/
 int				ft_atoi(const char *str);
@@ -74,10 +82,7 @@ void			ft_putstr(const char *s);
 char			*ft_strchr(const char *s, char c);
 int				ft_strlen(const char *s);
 char			*ft_itoa(int n);
-static int		tam(int n);
-
-
-
+int				tam(int n);
 
 				/***FUNCIONES DEL LIBFT***/
 

@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:37:15 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/18 14:43:00 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/02/24 23:53:37 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		*ft_itoa(int n)
 	return (num);
 }
 
-static int		tam(int n)
+int			tam(int n)
 {
 	int		len;
 	long	num;

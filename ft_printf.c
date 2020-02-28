@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:01:01 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/21 15:40:51 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/02/28 22:26:48 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ void		comprobar_percent(const char *format, t_flag *f)
 	{
 		if (format[f->i] == '%')  //MODIFICAR QUE NO SALGA DE ESTE IF HASTA Q NO COMPRUEBE...
 		{					//... EL FLAG ENTERO, TANTO preciscion Y WITH COMO %scdxuoX...
-			reset_flags(&(*f));
-			f->i ++;
+			reset_flags(f);
+			f->i++;
+			while((format[f->i] == '0' && format[f->i+1] == '-') || (format[f->i] == '0' && format[f->i+1] == '0'))
+				f->i++;
+			if (format[f->i] == '0')
+				f->space_zero = '0';
 			if (format[f->i] == '-' || format[f->i] == '.' || format[f->i] == '*' ||
 			(format[f->i] > 47 && format[f->i] < 58))
 			{
@@ -52,37 +56,38 @@ void		comprobar_percent(const char *format, t_flag *f)
 				comprobar_flag(format, &(*f));
 			}
 			if (format[f->i] == 'd' || format[f->i] == 'u' || format[f->i] == 'f' || format[f->i] == 'x'
-			|| format[f->i] == 'X' || format[f->i] == 'o' || format[f->i] == 's' || format[f->i] == 'c')
+			|| format[f->i] == 'X' || format[f->i] == 'o' || format[f->i] == 's' || format[f->i] == 'c'
+			|| format[f->i] == 'p')
 			{
-				comprobar_formato(format, *f);
-				f->i++;
+				comprobar_formato(format, f);
 			}
 		}
-	write(1, &format[f->i], 1);
-	f->i ++;
+		else
+			f->len += write(1, &format[f->i], 1);
+	f->i++;
 	}
 }
 
-void		comprobar_formato(const char *format, t_flag f) 	//VIENE DE LA FUNCION COMPROBAR_PERCENT
-{	//como una carretera que se desvía en muchas direcciones segun sea %s%c%d%x%p...
-	if (format[f.i] == 'd' || format[f.i] == 'i')
+void		comprobar_formato(const char *format, t_flag *f) 	//VIENE DE LA FUNCION COMPROBAR_PERCENT
+{
+	if (format[f->i] == 'd' || format[f->i] == 'i')
 		comprobar_decimal(f);			//DENTRO HAY QUE TENER EN CUENTA
-	if (format[f.i] == 'x')				//TANTO PRECISION COMO WIDTH PARA DEVOLVER
-		comprobar_hex(f);				//UN RESULTADO U OTR
-//if (format[f.i] == 'X')
-//		comprobar_unhex(f);
-//	if (format[f.i] == 'u')
-//		comprobar_unsigned();
-	if (format[f.i] == 'c')
+	if (format[f->i] == 'x')				//TANTO PRECISION COMO WIDTH PARA DEVOLVER
+		comprobar_hex(f, "0123456789abcdef");				//UN RESULTADO U OTR
+	if (format[f->i] == 'X')
+		comprobar_unhex(f, "0123456789ABCDEF");
+	if (format[f->i] == 'u')
+		comprobar_undecimal(f);
+	if (format[f->i] == 'c')
 		comprobar_char(f);
-	if (format[f.i] == 's')
+	if (format[f->i] == 's')
 		comprobar_string(f);  // ---> //ARCHIVO ft_printf_strings.c
-//	if (format[f.i] == 'p')
-//		comprobar_puntero(f);
+	if (format[f->i] == 'p')
+		comprobar_puntero(f);
 }
 
-void		comprobar_flag(const char *format, t_flag *f) //OJO CON EL SIGNO - HAY QUE IMPLEMENTARLO !!!!!!!!!!!!!!!!!!!!!!
-{			//VIENE DE LA FUNCION COMPROBAR_PERCENT
+void		comprobar_flag(const char *format, t_flag *f)
+{
 	if((format[f->i] > 47 && format[f->i] < 58) || format[f->i] == 42 || format[f->i] == 46) //entre 0 y 9 || * || . ||
 	{//OJO QUE EN VEZ DE WHILE PODRIA SER IF EN EL EJ: "%s9"
 		while((format[f->i] > 47 && format[f->i] < 58) || format[f->i] == 42) //entre 0 y 9 || *  --> WIDTH
@@ -96,13 +101,19 @@ void		comprobar_flag(const char *format, t_flag *f) //OJO CON EL SIGNO - HAY QUE
 			}
 			else				// si no es asterisco, sera entre 0 y 9
 			{
-				calculo_width(format, &(*f)); //esta funcion sacará el numero correspondiente al width
+				calculo_width(format, f); //esta funcion sacará el numero correspondiente al width
 			}
 		}
 		if (format[f->i] == 46) // si es .
 		{		//PRECISION
-		f->flag_precision = 1;
-		f->i++;
+			f->flag_precision = 1;
+			f-> space_zero = ' ';
+			f->i++;
+			if (format[f->i] == '-')
+				{
+					f->minus_width = 1;
+					f->i++;
+				}
 			while((format[f->i] > 47 && format[f->i] < 58) || format[f->i] == 42) //entre 0 y 9 || * --> PRECISION
 			{
 				if (format[f->i] == 42) //si es asterisco
@@ -111,11 +122,10 @@ void		comprobar_flag(const char *format, t_flag *f) //OJO CON EL SIGNO - HAY QUE
 					subtracta(&(*f)); // esta funcion solo pone f->minus a 1 si es <0
 					f->i++;
 				}
-				else				// si no es asterisco, sera entre 0 y 9
+				else
 				{
-					calculo_precision(format, &(*f)); //esta funcion sacará el numero correspondiente al width
+					calculo_precision(format, f);
 				}
-//ATENCION: el f->i++ está en los if anteriores donde trato de avanzar
 			}
 		}
 	}
@@ -129,12 +139,11 @@ void		calculo_width(const char *format, t_flag *f)
 
 	l = 0;
 	j = f->i;
-	while ((format[f->i] > 47) && (format[f->i] < 58)) //entre 0 y 9
+	while ((format[j] > 47) && (format[j] < 58)) //entre 0 y 9
 	{
-		f->i++;
+		j++;
 		l++;
 	}
-	f->i = j;
 	j = 0;
 	str = malloc(l + 1);
 	while ((format[f->i] > 47) && (format[f->i] < 58)) //entre 0 y 9
@@ -157,12 +166,11 @@ void		calculo_precision(const char *format, t_flag *f)
 
 	l = 0;
 	j = f->i;
-	while ((format[f->i] > 47) && (format[f->i] < 58)) //entre 0 y 9
+	while ((format[j] > 47) && (format[j] < 58)) //entre 0 y 9
 	{
-		f->i++;
+		j++;
 		l++;
 	}
-	f->i = j;
 	j = 0;
 	str = malloc(l + 1);
 	while(format[f->i] > 47 && format[f->i] < 58) //entre 0 y 9
@@ -185,6 +193,7 @@ void		reset_flags(t_flag *f)	//esta funcion para hacer reset de los flags...
 	f->precision = 0;
 	f->minus_width = 0;
 	f->minus_precision = 0;
+	f->space_zero = ' ';
 }
 
 void subtracta(t_flag *f)
@@ -194,16 +203,3 @@ void subtracta(t_flag *f)
 	if (f->precision < 0)
 		f->minus_precision = 1;
 }
-
-
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/* - - HASTA AQUI ES EL PROGRAMA,  LO DE ABAJO NO VALE - - */
-/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-/*
- ---------PRINTF PARA DEBUG:
- ---------comprobar todas las variables_
-printf("\nFormat[i]: %c, flagWidth: %d-%d, flagPre: %d-%d, len-i: %d-%d, minus: %d\n", format[f->i], f->flag_width, f->width,
-f->flag_precision, f->precision, f->len, f->i, f->minus);
-
-
-*/
