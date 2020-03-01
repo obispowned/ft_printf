@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:22:22 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/28 22:37:21 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/02/29 17:12:36 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	comprobar_decimal(t_flag *f)
 	}
 	aux = ft_itoa(a);
 	len = ft_strlen(aux);					//GUARDAMOS EN LEN EL TAMAÑO DEL ARGUMENTO (que esta en str)
+
 	if (f->flag_width == 1)
 	{
 		if (f->minus_width == 1)				//WIDTH NEGATIVO
@@ -115,13 +116,22 @@ void	print_decimal(t_flag *f, char *aux)
 {
 	int i;
 	int lenght;
+	int atoizador;
 
+	atoizador = ft_atoi(aux);
 	i = 0;
 	lenght = ft_strlen(aux);
-	while (i < lenght)
+	if (f->flag_precision && f->precision == 0 && atoizador == 0 && !f->flag_width)
+		write(1, "", 0);
+	else if (f->flag_precision && f->precision == 0 && atoizador == 0)
+		f->len += write(1, " ", 1);
+	else
 	{
-		write(1, &aux[i], 1); //STR LO HEMOS IGUALADO AL ARGUMENTO QUE REFERENCIA NUESTRO FLAG
-		i++;
-		f->len++;
+		while (i < lenght)
+		{
+			write(1, &aux[i], 1); //STR LO HEMOS IGUALADO AL ARGUMENTO QUE REFERENCIA NUESTRO FLAG
+			i++;
+			f->len++;
+		}
 	}
 }

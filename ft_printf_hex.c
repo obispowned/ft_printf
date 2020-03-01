@@ -6,73 +6,118 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:22:55 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/28 20:41:24 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/01 16:46:06 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		hexa_width(t_flag *f, int i)
+void				comprobar_hex(t_flag *f, char *digits)
 {
-	int		w;
-	int		p;
+	unsigned int	argumento;
+	int				resto;
+	int				i;
 
-	p = f->precision;
-	w = f->width;
-
-	while (w > i || p > i)
+	argumento = va_arg(f->args, unsigned int);
+	resto = argumento;
+	i = 0;
+	while (resto > 0)
 	{
-		if (w > f->precision)
-			f->len += write(1, " ", 1);
-		else
-			f->len += write(1, "0", 1);
-		w--;
-		p--;
+		resto = resto / 16;
+		i++;
 	}
+	if	(argumento == 0 && !f->precision && !f->flag_precision)
+		i = 1;
+	if (f->flag_width == 1)
+	{
+		if (f->minus_width == 1)
+		{
+			hexa_precision(f, i);
+			print_hexa(f, digits, argumento);
+			hexa_width(f, i);
+		}
+		else
+		{
+			hexa_width(f, i);
+			hexa_precision(f, i);
+			print_hexa(f, digits, argumento);
+		}
+	}
+	else if (f->flag_precision && !f->flag_width)
+	{
+		hexa_precision(f, i);
+		print_hexa(f, digits, argumento);
+	}
+	else
+		print_hexa(f, digits, argumento);
 }
 
 
-void			hexa_convert(t_flag *f, char *dighex, unsigned int argumento)
-{
-	char		*hexaprint;
-	int			resto;
-	int			i;
-	int			j;
-	int			y;
-	int			h;
 
-	y = argumento;
-	h = 0;
-	while (y > 0)
+/****************************************************************/
+
+void		print_hexa(t_flag *f, char *dighex, unsigned int argumento)
+{
+	char	*hexaprint;
+	int		resto;
+	int		i;
+
+	if	(argumento == 0 && !f->precision && !f->flag_precision)
+		f->len += write(1, "0", 1);
+	resto = argumento;
+	i = 0;
+	while (resto > 0)
 	{
-		y = y / 16;
-		h++;
+		resto = resto / 16;
+		i++;
 	}
-	y = argumento;
-	hexaprint = malloc(h);
+	hexaprint = malloc(i);
 	i = 0;
 	while (argumento > 0)
 	{
 		resto = argumento % 16;
-		hexaprint[i] = dighex[resto];
+		hexaprint[i++] = dighex[resto];
 		argumento = argumento / 16;
-		i++;
 	}
-	if (f->flag_width == 1)
-		hexa_width(&(*f), i);
-	j = i - 1;
-	while (j >= 0)
-	{
-		f->len += write(1, &hexaprint[j], 1);
-		j--;
-	}
+	i = i - 1;
+	while (i >= 0)
+		f->len += write(1, &hexaprint[i--], 1);
 	free(hexaprint);
 }
 
-void	comprobar_hex(t_flag *f, char *digits)
-{
-	unsigned int		argumento;
+/****************************************************************/
 
-	argumento = va_arg(f->args, unsigned int);
-	hexa_convert(f, digits, argumento);
+void	hexa_width(t_flag *f, int i)
+{
+	int	j;
+	int	z;
+
+	j = 0;
+	z = i;
+
+	if (f->width > f->precision && f->width > z)
+	{
+		j = f->width;
+		while (j > f->precision && j > z)
+		{
+			f->len += write(1, &f->space_zero, 1);
+			j--;
+		}
+	}
 }
+
+/****************************************************************/
+
+void	hexa_precision(t_flag *f, int i)
+{
+	int z;
+
+	z = i;
+	while (z < f->precision)
+	{
+		f->len += write(1, "0", 1);
+		z++;
+	}
+}
+
+

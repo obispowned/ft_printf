@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:01:01 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/28 22:26:48 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/01 21:19:56 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,57 @@ void		comprobar_percent(const char *format, t_flag *f)
 {			//VIENE DE LA FUNCION FT_PPRINTF
 	while(format[f->i] != '\0')
 	{
-		if (format[f->i] == '%')  //MODIFICAR QUE NO SALGA DE ESTE IF HASTA Q NO COMPRUEBE...
+		if (format[f->i] == '%' && format[f->i+1] != '\0')  //MODIFICAR QUE NO SALGA DE ESTE IF HASTA Q NO COMPRUEBE...
 		{					//... EL FLAG ENTERO, TANTO preciscion Y WITH COMO %scdxuoX...
 			reset_flags(f);
 			f->i++;
 			while((format[f->i] == '0' && format[f->i+1] == '-') || (format[f->i] == '0' && format[f->i+1] == '0'))
 				f->i++;
-			if (format[f->i] == '0')
+			if (format[f->i] == '0')														//PARA CONTROLAR EL WIDTH CON 0
 				f->space_zero = '0';
 			if (format[f->i] == '-' || format[f->i] == '.' || format[f->i] == '*' ||
 			(format[f->i] > 47 && format[f->i] < 58))
 			{
-				if (format[f->i] == '-')
+				if (format[f->i+1] != '\0')
 				{
-					f->minus_width = 1;
-					f->i++;
-				}
+					if (format[f->i] == '-')
+					{
+						f->minus_width = 1;
+						f->i++;
+					}
 				comprobar_flag(format, &(*f));
+				}
 			}
 			if (format[f->i] == 'd' || format[f->i] == 'u' || format[f->i] == 'f' || format[f->i] == 'x'
 			|| format[f->i] == 'X' || format[f->i] == 'o' || format[f->i] == 's' || format[f->i] == 'c'
-			|| format[f->i] == 'p')
-			{
+			|| format[f->i] == 'p' || format[f->i] == 'i')
 				comprobar_formato(format, f);
-			}
+			else
+				stranger_things(f);
 		}
 		else
 			f->len += write(1, &format[f->i], 1);
 	f->i++;
 	}
+}
+
+void		stranger_things(t_flag *f)
+{
+	if (f->flag_width == 1)
+	{
+		if (f->minus_width == 1)
+		{
+			f->len += write(1, "%", 1);
+			str_width(f, 1);
+		}
+		else
+		{
+			str_width(f, 1);
+			f->len += write(1, "%", 1);
+		}
+	}
+	else
+		f->len += write(1, "%", 1);
 }
 
 void		comprobar_formato(const char *format, t_flag *f) 	//VIENE DE LA FUNCION COMPROBAR_PERCENT
@@ -83,7 +105,7 @@ void		comprobar_formato(const char *format, t_flag *f) 	//VIENE DE LA FUNCION CO
 	if (format[f->i] == 's')
 		comprobar_string(f);  // ---> //ARCHIVO ft_printf_strings.c
 	if (format[f->i] == 'p')
-		comprobar_puntero(f);
+		comprobar_pointer(f, "0123456789abcdef");
 }
 
 void		comprobar_flag(const char *format, t_flag *f)
@@ -99,15 +121,13 @@ void		comprobar_flag(const char *format, t_flag *f)
 				subtracta(&(*f)); // esta funcion solo pone f->minus a 1 si es <0
 				f->i++;
 			}
-			else				// si no es asterisco, sera entre 0 y 9
-			{
+			else 				// si no es asterisco, sera entre 0 y 9
 				calculo_width(format, f); //esta funcion sacará el numero correspondiente al width
-			}
 		}
 		if (format[f->i] == 46) // si es .
 		{		//PRECISION
 			f->flag_precision = 1;
-			f-> space_zero = ' ';
+			f->space_zero = ' ';
 			f->i++;
 			if (format[f->i] == '-')
 				{
@@ -139,14 +159,14 @@ void		calculo_width(const char *format, t_flag *f)
 
 	l = 0;
 	j = f->i;
-	while ((format[j] > 47) && (format[j] < 58)) //entre 0 y 9
+	while (format[j] > 47 && format[j] < 58) //entre 0 y 9
 	{
 		j++;
 		l++;
 	}
 	j = 0;
 	str = malloc(l + 1);
-	while ((format[f->i] > 47) && (format[f->i] < 58)) //entre 0 y 9
+	while (format[f->i] > 47 && format[f->i] < 58) //entre 0 y 9
 	{
 		str[j] = format[f->i];
 		j++;

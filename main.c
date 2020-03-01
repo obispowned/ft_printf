@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:24:12 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/28 22:37:01 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/01 20:58:33 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			main()
 	int		*p = &j;
 
 
-	ft_printf("\n\n****** CHAR ******\n");
+	/*ft_printf("\n\n****** CHAR ******\n");
 
 	printf("CARACTERES: %d \n", ft_printf("mi char 9c: -%9c-\n", c));
 	printf("CARACTERES: %d \n\n", printf("char 9c :   -%9c-\n", c));
@@ -38,11 +38,11 @@ int			main()
 	printf("CARACTERES: %d \n", ft_printf("mi char *c-5: -%*c-\n", -5, c));
 	printf("CARACTERES: %d \n\n", printf("char  *c-5:   -%*c-\n", -5, c));
 	printf("CARACTERES: %d \n", ft_printf("mi char *c-20: -%*c-\n", -20, c));
-	printf("CARACTERES: %d \n\n", printf("char  *c-20:   -%*c-\n", -20, c));
+	printf("CARACTERES: %d \n\n", printf("char  *c-20:   -%*c-\n", -20, c));*/
 
-	ft_printf("\n\n****** STRINGS ******\n");
+	/*ft_printf("\n\n****** STRINGS ******\n");
 
-	/*printf("CARACTERES: %d \n", ft_printf("mi printf   15s: %*.*s\n",11, 1, a));
+	printf("CARACTERES: %d \n", ft_printf("mi printf   15s: %*.*s\n",11, 1, a));
 	printf("CARACTERES: %d \n\n", printf("oficial con 15s: %*.*s\n",11, 1, a));
 	printf("CARACTERES: %d \n", ft_printf("mi printf   15s: %9.3s\n", a));
 	printf("CARACTERES: %d \n\n", printf("oficial con 15s: %9.3s\n", a));
@@ -82,7 +82,6 @@ int			main()
 	printf("CARACTERES: %d \n\n", printf("%-3.1s", NULL));
 	printf("CARACTERES: %d \n", ft_printf("%7.5s", "123456789"));
 	printf("CARACTERES: %d \n\n", printf("%7.5s", "123456789"));
-
 	printf("CARACTERES: %d \n", ft_printf("%0-0s", "hi low"));
 	printf("CARACTERES: %d \n\n", printf("%0-0s", "hi low"));
 	printf("CARACTERES: %d \n", ft_printf("%00-s", "hi low"));
@@ -90,9 +89,7 @@ int			main()
 	printf("CARACTERES: %d \n", ft_printf("%09s", "hi low"));
 	printf("CARACTERES: %d \n\n", printf("%09s", "hi low"));*/
 
-
-
-	ft_printf("\n\n****** INT ******\n");
+	/*ft_printf("\n\n****** INT ******\n");
 
 	printf("|CARACTERES: %d \n\n", printf("%-7d", -14));
 	printf("|CARACTERES: %d \n\n", ft_printf("%-7d", -14));
@@ -156,12 +153,33 @@ int			main()
 	printf("|CARACTERES: %d \n", printf("%-5.0d", 0));
 	printf("|CARACTERES: %d \n\n", ft_printf("%-5.0d", 0));
 	printf("|CARACTERES: %d \n", printf("%-5.d", 0));
-	printf("|CARACTERES: %d \n\n", ft_printf("%-5.d", 0));
+	printf("|CARACTERES: %d \n\n", ft_printf("%-5.d", 0));*/
+
+	/*ft_printf("\n\n****** UNSIGNED ******\n");
+
+	printf("CARACTERES: %d \n", printf("\noFiUNSIGNED %u\n", 30));
+	printf("CARACTERES: %d \n\n", ft_printf("\nUNSIGNED %u\n", 30));
+		printf("CARACTERES: %d \n", printf("%u", 4294967295u));
+	printf("CARACTERES: %d \n\n", ft_printf("%u", 4294967295u));
+		printf("CARACTERES: %d \n", printf("%7u", 33));
+	printf("CARACTERES: %d \n\n", ft_printf("%7u", 33));
+		printf("CARACTERES: %d \n", printf("%3u", 0));
+	printf("CARACTERES: %d \n\n", ft_printf("%3u", 0));
+		printf("CARACTERES: %d \n", printf("%-7u", 33));
+	printf("CARACTERES: %d \n\n", ft_printf("%-7u", 33));
+		printf("CARACTERES: %d \n", printf("%-3u", 0));
+	printf("CARACTERES: %d \n\n", ft_printf("%-3u", 0));
+		printf("CARACTERES: %d \n", printf("%.5u", 2));
+	printf("CARACTERES: %d \n\n", ft_printf("%.5u", 2));
+		printf("CARACTERES: %d \n", printf("%05u", 43));
+	printf("CARACTERES: %d \n\n", ft_printf("%05u", 43));
+		printf("CARACTERES: %d \n", printf("%8.5u", 0));
+	printf("CARACTERES: %d \n\n", ft_printf("%8.5u", 0));*/
 
 
-	ft_printf("\n\n****** HEX ******\n");
+	/*ft_printf("\n\n****** HEX ******\n");
 
-	/*printf("CARACTERES: %d \n", ft_printf("HEXADECIMAL: %x\n", 4779));
+	printf("CARACTERES: %d \n", ft_printf("HEXADECIMAL: %x\n", 4779));
 	printf("CARACTERES: %d \n\n", printf("oficial HEXADECIMAL: %x\n", 4779));
 	printf("CARACTERES: %d \n", ft_printf("HEXADECIMAL 6.6: %6.6x\n", 2323));
 	printf("CARACTERES: %d \n\n", printf("oficialHEXADECIMAL 6.6: %6.6x\n", 2323));
@@ -174,6 +192,7 @@ int			main()
 	printf("CARACTERES: %d \n", ft_printf("this %x number", 0));
 	printf("CARACTERES: %d \n\n", printf("this %x number", 0));*/
 
+
 	/*ft_printf("\n\n****** PUNTEROS ******\n");
 
 	printf("CARACTERES: %d \n", ft_printf("punteros    p: %p\n", p));
@@ -185,20 +204,75 @@ int			main()
 	printf("CARACTERES: %d \n", ft_printf("punteros    3.7p: -%3.7p-\n", p));
 	printf("CARACTERES: %d \n\n", printf("OFIpunteros 3.7p: -%3.7p-\n", p));
 
+	printf("CARACTERES: %d \n", ft_printf("%p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%5p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%5p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%.p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%.p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%9.2p", 1234));
+	printf("CARACTERES: %d \n\n", printf("%9.2p", 1234));
 
-	ft_printf("\n\n****** UN-HEX ******\n");
+	printf("CARACTERES: %d \n", ft_printf("%2.9p", 1234));
+	printf("CARACTERES: %d \n\n", printf("%2.9p", 1234));
+	printf("CARACTERES: %d \n", ft_printf("%.5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%.5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%.0p", 0));
+	printf("CARACTERES: %d \n\n", printf("%.0p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%9.2p", 1234));
+	printf("CARACTERES: %d \n\n", printf("%9.2p", 1234));
+	printf("CARACTERES: %d \n", ft_printf("%.5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%.5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%5p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%5p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%2p", NULL));
+	printf("CARACTERES: %d \n\n", printf("%2p", NULL));
+	printf("CARACTERES: %d \n", ft_printf("%.5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%.5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%p",&j));
+	printf("CARACTERES: %d \n\n", printf("%p",&j));
+	printf("CARACTERES: %d \n", ft_printf("%p",p));
+	printf("CARACTERES: %d \n\n", printf("%p",p));
+	printf("CARACTERES: %d \n", ft_printf("%.5p", 0));
+	printf("CARACTERES: %d \n\n", printf("%.5p", 0));
+	printf("CARACTERES: %d \n", ft_printf("%p", 1234));
+	printf("CARACTERES: %d \n\n", printf("%p", 1234));
+	printf("CARACTERES: %d \n\n", printf("%p", (void *)-1));
+	printf("CARACTERES: %d \n\n", ft_printf("%p", (void *)-1));*/
+
+	/*ft_printf("\n\n****** UN-HEX ******\n");
 
 	printf("CARACTERES: %d \n", ft_printf("UN-HEXADECIMAL: %X\n", 1598));
-	printf("CARACTERES: %d \n\n", printf("oficial-UN-HEXADECIMAL: %X\n", 1598));
+	printf("CARACTERES: %d \n\n", printf("oficial-UN-HEXADECIMAL: %X\n", 1598));*/
 
-	ft_printf("\n\n****** UNSIGNED ******\n");
-
-	printf("CARACTERES: %d \n", printf("\noFiUNSIGNED %u\n", 30));
-	printf("CARACTERES: %d \n\n", ft_printf("\nUNSIGNED %u\n", 30));
 
 	ft_printf("\n\n****** OTRAS PRUEBAS ******\n");
 
-	printf("CARACTERES: %d \n", ft_printf("numero: %d, letra: %c, hexadec: %x, string: %s", 69, 'A', 6969, "mierda"));
-*/
+	printf("CARACTERES: %d \n", ft_printf("%05"));
+	printf("CARACTERES: %d \n\n", printf("%05"));
+	printf("CARACTERES: %d \n", ft_printf("%-05"));
+	printf("CARACTERES: %d \n\n", printf("%-05"));
+	printf("CARACTERES: %d \n", ft_printf("%-5"));
+	printf("CARACTERES: %d \n\n", printf("%-5"));
+	printf("CARACTERES: %d \n", ft_printf("%*s", -32, "abc"));
+	printf("CARACTERES: %d \n\n", printf("%*s", -32, "abc"));
+	printf("CARACTERES: %d \n", ft_printf("%-*s", -32, "abc"));
+	printf("CARACTERES: %d \n\n", printf("%-*s", -32, "abc"));
+	printf("CARACTERES: %d \n", ft_printf("%-*.*s", -7, -3, "yolo"));
+	printf("CARACTERES: %d \n\n", printf("%-*.*s", -7, -3, "yolo"));
+	printf("CARACTERES: %d \n", ft_printf("%*i", -14, 94827));
+	printf("CARACTERES: %d \n\n", printf("%*i", -14, 94827));
+	printf("CARACTERES: %d \n", ft_printf("%0*i", -7, -54));
+	printf("CARACTERES: %d \n\n", printf("%0*i", -7, -54));
+
+
+//	printf("CARACTERES: %d \n", ft_printf("numero: %d, letra: %c, hexadec: %x, string: %s", 69, 'A', 6969, "mierda"));
+//	printf("\n-1-\n");
 }
 
