@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 20:10:07 by agutierr          #+#    #+#             */
-/*   Updated: 2020/03/01 16:47:34 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/03 21:11:11 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void				comprobar_unhex(t_flag *f, char *digits)
 {
 	unsigned int	argumento;
-	int				resto;
+	unsigned int	resto;
 	int				i;
 
 	argumento = va_arg(f->args, unsigned int);
@@ -28,6 +28,12 @@ void				comprobar_unhex(t_flag *f, char *digits)
 	}
 	if (argumento == 0 && !f->precision && !f->flag_precision)
 		i = 1;
+	comprobar_unhex2(f, digits, argumento, i);
+}
+
+void				comprobar_unhex2(t_flag *f,
+char *digits, unsigned int argumento, int i)
+{
 	if (f->flag_width == 1)
 	{
 		if (f->minus_width == 1)
@@ -52,17 +58,14 @@ void				comprobar_unhex(t_flag *f, char *digits)
 		print_unhexa(f, digits, argumento);
 }
 
-
-
-/****************************************************************/
-
-void		print_unhexa(t_flag *f, char *dighex, unsigned int argumento)
+void				print_unhexa(t_flag *f, char *dighex,
+unsigned int argumento)
 {
-	char	*hexaprint;
-	int		resto;
-	int		i;
+	char			*hexaprint;
+	int				resto;
+	int				i;
 
-	if	(argumento == 0 && !f->precision && !f->flag_precision)
+	if (argumento == 0 && !f->precision && !f->flag_precision)
 		f->len += write(1, "0", 1);
 	resto = argumento;
 	i = 0;
@@ -85,16 +88,13 @@ void		print_unhexa(t_flag *f, char *dighex, unsigned int argumento)
 	free(hexaprint);
 }
 
-/****************************************************************/
-
-void	unhexa_width(t_flag *f, int i)
+void				unhexa_width(t_flag *f, int i)
 {
-	int	j;
-	int	z;
+	int				j;
+	int				z;
 
 	j = 0;
 	z = i;
-
 	if (f->width > f->precision && f->width > z)
 	{
 		j = f->width;
@@ -106,11 +106,9 @@ void	unhexa_width(t_flag *f, int i)
 	}
 }
 
-/****************************************************************/
-
-void	unhexa_precision(t_flag *f, int i)
+void				unhexa_precision(t_flag *f, int i)
 {
-	int z;
+	int				z;
 
 	z = i;
 	while (z < f->precision)

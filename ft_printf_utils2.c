@@ -6,18 +6,18 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 14:37:15 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/29 17:36:34 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:40:28 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
-char		*ft_itoa(unsigned int n)
+char						*ft_itoa(unsigned int n)
 {
-	char			*num;
-	unsigned int	nu;
-	int				len;
-	int				i;
+	char					*num;
+	unsigned int			nu;
+	int						len;
+	int						i;
 
 	nu = n;
 	len = tam(n);
@@ -38,12 +38,11 @@ char		*ft_itoa(unsigned int n)
 	return (num);
 }
 
-int	tam(unsigned int n)
+int							tam(unsigned int n)
 {
-	int			len;
-	unsigned	num;
+	int						len;
+	unsigned				num;
 
-//	num = n;
 	len = (n < 0 ? 1 : 0);
 	num = n;
 	while (num / 10)

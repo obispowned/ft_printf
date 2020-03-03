@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:22:55 by agutierr          #+#    #+#             */
-/*   Updated: 2020/03/01 16:46:06 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:46:18 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void				comprobar_hex(t_flag *f, char *digits)
 {
 	unsigned int	argumento;
-	int				resto;
+	unsigned int	resto;
 	int				i;
 
 	argumento = va_arg(f->args, unsigned int);
@@ -26,8 +26,14 @@ void				comprobar_hex(t_flag *f, char *digits)
 		resto = resto / 16;
 		i++;
 	}
-	if	(argumento == 0 && !f->precision && !f->flag_precision)
+	if (argumento == 0 && !f->precision && !f->flag_precision)
 		i = 1;
+	comprobar_hex2(f, digits, argumento, i);
+}
+
+void				comprobar_hex2(t_flag *f,
+char *digits, unsigned int argumento, int i)
+{
 	if (f->flag_width == 1)
 	{
 		if (f->minus_width == 1)
@@ -52,17 +58,13 @@ void				comprobar_hex(t_flag *f, char *digits)
 		print_hexa(f, digits, argumento);
 }
 
-
-
-/****************************************************************/
-
-void		print_hexa(t_flag *f, char *dighex, unsigned int argumento)
+void				print_hexa(t_flag *f, char *dighex, unsigned int argumento)
 {
-	char	*hexaprint;
-	int		resto;
-	int		i;
+	char			*hexaprint;
+	int				resto;
+	int				i;
 
-	if	(argumento == 0 && !f->precision && !f->flag_precision)
+	if (argumento == 0 && !f->precision && !f->flag_precision)
 		f->len += write(1, "0", 1);
 	resto = argumento;
 	i = 0;
@@ -85,16 +87,13 @@ void		print_hexa(t_flag *f, char *dighex, unsigned int argumento)
 	free(hexaprint);
 }
 
-/****************************************************************/
-
-void	hexa_width(t_flag *f, int i)
+void				hexa_width(t_flag *f, int i)
 {
-	int	j;
-	int	z;
+	int				j;
+	int				z;
 
 	j = 0;
 	z = i;
-
 	if (f->width > f->precision && f->width > z)
 	{
 		j = f->width;
@@ -106,11 +105,9 @@ void	hexa_width(t_flag *f, int i)
 	}
 }
 
-/****************************************************************/
-
-void	hexa_precision(t_flag *f, int i)
+void				hexa_precision(t_flag *f, int i)
 {
-	int z;
+	int				z;
 
 	z = i;
 	while (z < f->precision)
@@ -119,5 +116,3 @@ void	hexa_precision(t_flag *f, int i)
 		z++;
 	}
 }
-
-

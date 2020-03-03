@@ -6,7 +6,7 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 19:24:12 by agutierr          #+#    #+#             */
-/*   Updated: 2020/03/01 20:58:33 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/03 19:47:56 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ int			main()
 
 	ft_printf("\n\n****** OTRAS PRUEBAS ******\n");
 
-	printf("CARACTERES: %d \n", ft_printf("%05"));
+/*	printf("CARACTERES: %d \n", ft_printf("%05"));
 	printf("CARACTERES: %d \n\n", printf("%05"));
 	printf("CARACTERES: %d \n", ft_printf("%-05"));
 	printf("CARACTERES: %d \n\n", printf("%-05"));
@@ -265,14 +265,44 @@ int			main()
 	printf("CARACTERES: %d \n", ft_printf("%-*s", -32, "abc"));
 	printf("CARACTERES: %d \n\n", printf("%-*s", -32, "abc"));
 	printf("CARACTERES: %d \n", ft_printf("%-*.*s", -7, -3, "yolo"));
-	printf("CARACTERES: %d \n\n", printf("%-*.*s", -7, -3, "yolo"));
-	printf("CARACTERES: %d \n", ft_printf("%*i", -14, 94827));
+	printf("CARACTERES: %d \n\n", printf("%-*.*s", -7, -3, "yolo"));*/
+/*	printf("CARACTERES: %d \n", ft_printf("%*i", -14, 94827));
 	printf("CARACTERES: %d \n\n", printf("%*i", -14, 94827));
+	printf("CARACTERES: %d \n", ft_printf("%10.5i", -216));
+	printf("CARACTERES: %d \n\n", printf("%10.5i", -216));
+	printf("CARACTERES: %d \n", ft_printf("%0-10.5d", -216));
+	printf("CARACTERES: %d \n\n", printf("%0-10.5d", -216));
 	printf("CARACTERES: %d \n", ft_printf("%0*i", -7, -54));
 	printf("CARACTERES: %d \n\n", printf("%0*i", -7, -54));
+	printf("CARACTERES: %d \n", ft_printf("%0*d", -10, 42));
+	printf("CARACTERES: %d \n\n", printf("%0*d", -10, 42));
+	printf("CARACTERES: %d \n", ft_printf("%*.*d", 0, 0, 0));
+	printf("CARACTERES: %d \n\n", printf("%*.*d", 0, 0, 0));*/
+
+	printf("CARACTERES: %d \n", ft_printf("%01.10x", -1));
+	printf("CARACTERES: %d \n\n", printf("%01.10x", -1));
+	printf("CARACTERES: %d \n", ft_printf("%02.2x", -1));
+	printf("CARACTERES: %d \n\n", printf("%02.2x", -1));
+
+//	printf("CARACTERES: %d \n", ft_printf("%.s", 42));
+//	printf("CARACTERES: %d \n\n", printf("%.s", 42));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //	printf("CARACTERES: %d \n", ft_printf("numero: %d, letra: %c, hexadec: %x, string: %s", 69, 'A', 6969, "mierda"));
 //	printf("\n-1-\n");
+//	printf("\n flagW-width: |%d|%d| - flagP-precision: |%d|%d| -\n", f->flag_width, f->width, f->flag_precision, f->precision);
+
 }
 

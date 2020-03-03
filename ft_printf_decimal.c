@@ -6,20 +6,24 @@
 /*   By: agutierr <agutierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 18:22:22 by agutierr          #+#    #+#             */
-/*   Updated: 2020/02/29 17:12:36 by agutierr         ###   ########.fr       */
+/*   Updated: 2020/03/03 21:34:45 by agutierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
-void	comprobar_decimal(t_flag *f)
+void		comprobar_decimal(t_flag *f)
 {
 	int		len;
 	int		a;
-	char 	*aux;
+	char	*aux;
 
 	f->minus = 0;
-	a = va_arg(f->args, int);			//METEMOS EN STR EL ARGUMENTO
+	a = va_arg(f->args, int);
+	if (f->width < 0 && a < 0)
+		f->space_zero = ' ';
+	if (f->width < 0)
+		f->width *= -1;
 	if (a < 0)
 	{
 		f->minus = 1;
@@ -27,34 +31,16 @@ void	comprobar_decimal(t_flag *f)
 		f->width--;
 	}
 	aux = ft_itoa(a);
-	len = ft_strlen(aux);					//GUARDAMOS EN LEN EL TAMAÑO DEL ARGUMENTO (que esta en str)
+	len = ft_strlen(aux);
+	comprobar_decimal2(f, aux, len);
+}
 
+void		comprobar_decimal2(t_flag *f, char *aux, int len)
+{
 	if (f->flag_width == 1)
 	{
-		if (f->minus_width == 1)				//WIDTH NEGATIVO
-		{
-			if (f->minus == 1)
-			{
-				f->len += write(1, "-", 1);
-				f->minus = 0;
-			}
-			decimal_precision(f, len);
-			print_decimal(f, aux);
-			decimal_width(f, len);
-		}
-		else
-		{
-			decimal_width(f, len);		//WIDTH POSITIVO
-			if (f->minus == 1)
-			{
-				f->len += write(1, "-", 1);
-				f->minus = 0;
-			}
-			decimal_precision(f, len);
-			print_decimal(f, aux);
-		}
+		comprobar_decimal3(f, aux, len);
 	}
-
 	else if (f->flag_precision && !f->flag_width)
 	{
 		decimal_precision(f, len);
@@ -62,76 +48,25 @@ void	comprobar_decimal(t_flag *f)
 	}
 	else
 	{
-		if (f->minus == 1)
-		{
-			f->len += write(1, "-", 1);
-			f->minus = 0;
-		}
+		compare_minus(f);
 		print_decimal(f, aux);
 	}
 }
-/********************************************************************************************/
-void	decimal_width(t_flag *f, int len)
-{
-	int	i;
-	int aux;
 
-	i = 0;
-	aux = len;
-	if (f->space_zero == '0' && f->minus == 1)
-	{
-		f->len += write(1, "-", 1);
-		f->minus = 0;
-	}
-	if (f->width > f->precision && f->width > aux)
-	{
-		i = f->width;
-		while (i > f->precision && i > aux)
-		{
-			f->len += write(1, &f->space_zero, 1);
-			i--;
-		}
-	}
-}
-/********************************************************************************************/
-void	decimal_precision(t_flag *f, int len)
+void		comprobar_decimal3(t_flag *f, char *aux, int len)
 {
-	int aux;
-
-	aux = len;
-	if (f->space_zero == ' ' && f->minus == 1 && f->minus_width == 0)
+	if (f->minus_width == 1)
 	{
-		f->len += write(1, "-", 1);
-		f->minus = 0;
+		compare_minus(f);
+		decimal_precision(f, len);
+		print_decimal(f, aux);
+		decimal_width(f, len);
 	}
-	while (aux < f->precision)
-	{
-		write(1, "0", 1);
-		aux++;
-		f->len++;
-	}
-}
-/********************************************************************************************/
-void	print_decimal(t_flag *f, char *aux)
-{
-	int i;
-	int lenght;
-	int atoizador;
-
-	atoizador = ft_atoi(aux);
-	i = 0;
-	lenght = ft_strlen(aux);
-	if (f->flag_precision && f->precision == 0 && atoizador == 0 && !f->flag_width)
-		write(1, "", 0);
-	else if (f->flag_precision && f->precision == 0 && atoizador == 0)
-		f->len += write(1, " ", 1);
 	else
 	{
-		while (i < lenght)
-		{
-			write(1, &aux[i], 1); //STR LO HEMOS IGUALADO AL ARGUMENTO QUE REFERENCIA NUESTRO FLAG
-			i++;
-			f->len++;
-		}
+		decimal_width(f, len);
+		compare_minus(f);
+		decimal_precision(f, len);
+		print_decimal(f, aux);
 	}
 }
